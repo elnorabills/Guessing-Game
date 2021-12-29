@@ -9,19 +9,38 @@ const rl = readline.createInterface({ input, output });
 let secretNumber = 5;
 
 function checkGuess(guess){
-    if(guess > secretNumber){
+    let number = Number(guess);
+
+    if(isNaN(number)) {
+        console.log("Not a number! Try again!!");
+        return false;
+    }
+
+    if(number > secretNumber){
         console.log('too high');
         return false;
     }
-    if(guess < secretNumber){
+    if(number < secretNumber){
         console.log('too low');
         return false;
     }
-    if(guess === secretNumber){
+    if(number === secretNumber){
         console.log('correct');
         return true;
     }
 }
 
 
-function askGuess(num){}
+function askGuess(answer){
+    rl.question("Enter a guess: ", (answer) => {
+        checkGuess(answer);
+        if (answer === secretNumber) {
+            console.log("You Win!");
+            rl.close();
+            return;
+        }
+        askGuess(answer);
+    })
+}
+
+console.log(askGuess());
