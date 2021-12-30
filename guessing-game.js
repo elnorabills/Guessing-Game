@@ -15,32 +15,34 @@ function checkGuess(guess){
         console.log("Not a number! Try again!!");
         return false;
     }
-
     if(number > secretNumber){
-        console.log('too high');
+        console.log('Too high');
         return false;
     }
     if(number < secretNumber){
-        console.log('too low');
+        console.log('Too low');
         return false;
     }
     if(number === secretNumber){
-        console.log('correct');
+        console.log('Correct');
         return true;
     }
 }
 
 
-function askGuess(answer){
+function askGuess(){
     rl.question("Enter a guess: ", (answer) => {
-        checkGuess(answer);
-        if (answer === secretNumber) {
+        if(checkGuess(answer)) {
             console.log("You Win!");
             rl.close();
-            return;
         }
-        askGuess(answer);
-    })
+        else {
+            askGuess(answer);
+        }
+    });
 }
 
-console.log(askGuess());
+askGuess();
+
+//do not need to console.log() askGuess
+//becuase it does not have a return value (the console.log gives us undefined)
